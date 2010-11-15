@@ -1,0 +1,53 @@
+@media screen  and (max-width:1280px)
+{
+	.svg {
+ 	 background: url('aphroisms_svg-01.svg') no-repeat;
+	 background-size: 100% 100%;
+	 width: 1280px;
+	 height: 720px;
+	}
+}
+@media screen and (min-width:1281px) and (max-width:1280px)
+{
+	.svg {
+ 	 background: url('aphroisms_svg-02.svg') no-repeat;
+	 background-size: 100% 100%;
+	 width: 1280px;
+	 height: 720px;
+	}
+}
+@media screen and (min-width:1281px) and (max-width:1280px)
+{
+	.svg {
+ 	 background: url('aphroisms_svg-03.svg') no-repeat;
+	 background-size: 100% 100%;
+	 width: 1280px;
+	 height: 720px;
+	}
+}
+@media screen and (min-width:1281px) and (max-width:1280px)
+{
+	.svg {
+ 	 background: url('aphroisms_svg-04.svg') no-repeat;
+	 background-size: 100% 100%;
+	 width: 1280px;
+	 height: 720px;
+	}
+}
+@media screen and (min-width:1281px) and (max-width:1280px)
+{
+	.svg {
+ 	 background: url('aphroisms_svg-05.svg') no-repeat;
+	 background-size: 100% 100%;
+	 width: 1280px;
+	 height: 720px;
+	}
+}
+@media screen and (min-width:1281px){
+	.svg {
+ 	 background: url('aphroisms_svg-06.svg') no-repeat;
+	 background-size: 100% 100%;
+	 width: 1280px;
+	 height: 720px;
+	}
+}
