@@ -15,6 +15,8 @@ public class AphroMachine extends PApplet {
 	int fontSize = 65;
 	int svgCount = 6;
 	int svgPos = 0;
+	int hue, satur, br;
+	boolean seek = false, newAphro = true, auto = true;
 	
 	String[] svgs  = new String[svgCount];
 	
@@ -25,19 +27,25 @@ public class AphroMachine extends PApplet {
 	RPoint[] shpPts;
 	
 	//font-to-geometry settings
-	int segmentLength = 4;
+	int segmentLength = 1;
 	int baseR = 4;
+	int alpha = 20;
+	int mode = 0;  //0: points, 1:ellipses
 	
     
     public void setup() {
-        size(1280, 720, OPENGL); smooth();
+        size(1280, 720, P2D); 
+        smooth();
         colorMode(HSB, 360, 100, 100);
-        //background(0);
+        randomSeed(360);
+        background(0);
         //noCursor();
         noStroke();
         
+        hue = (int)random(360);
+        
         fill(200, 99, 99);
-        stroke(200, 99, 99, 15 );
+        stroke(200, 85, 83, alpha );
         
         //initialize RG library
         RG.init(this);
@@ -56,48 +64,84 @@ public class AphroMachine extends PApplet {
         
         //load first svg
         loadSvg();
-        loadSeekers();
-        
-        
 	}
 
 	public void draw() {
-	    background(0);
-	    
-	    if (shpPts != null) {
-	        
-	        update(shpPts.length, shpPts, baseR);   
-	        
+	    if (mode == 1) {
+	        background(0);
 	    }
 	    
 	    
+	    //get all the points in the shape
+        shpPts = shp.getPoints();
+        //println("\tTotal Points in current SVG: "+shpPts.length);
+        //shp.draw();
+	    
+        if(shpPts != null) {
+            if (newAphro) {
+                coords = new ArrayList<Point>();
+                println("\t\tcoords ArrayList created...");
+            }
+        }
+        
+	    if (shpPts.length > 0) {
+	        update(shpPts.length, shpPts, baseR);   	        
+	    }
+	    
+	    if (newAphro) {
+	        newAphro = false;
+	    }
+	    
+	    //add seekers if there are more points than seekers
+	    checkSeekerCount(shpPts.length);
+	    
+	    if (arrived() == 100) {
+	        println("\n\t\t100 Boids arrived");
+	    }
+	        
+	   
+	}
+	
+	public void mousePressed() {
+	    loadSvg();
+	    hue = (int)random(360);
+	    satur = (int)random(50,70);
+	    br = (int)random(70,90);
+	    if (mode == 0) {
+	      stroke(hue, satur, br, alpha);
+	    }
 	    
 	}
 	
 	void loadSvg() {
-	    shp = RG.loadShape(svgs[svgPos]);
-	    println("\t"+svgs[svgPos]+" SVG LOADED...");
 	    if (svgPos < svgCount) {
+	        //load in next svg
+	        shp = RG.loadShape(svgs[svgPos]);
+	        println("\t"+svgs[svgPos]+" SVG LOADED...");
+	        
+	        //ready new simulation sequence
+	        newAphro = true;
 	        svgPos++;
+	        println("\t\tsvgPos incremented to: "+svgPos);
+	        
+	        //(optional) clear the canvas
+	        //background(0);
+	        
+            if (mode == 0) {
+              //clear the boid ArrayList
+              seekers = new ArrayList<Boid>();
+              //dim previous aphroism
+              fill(0, 0, 0, 128);
+              rect(0,0,width, height);
+            }
+	        
+	        
 	    } else {
-	        println("\treseting svgPos to 0");
+	        println("\n\tReseting svgPos to 0");
 	        svgPos = 0;
+	        //start the load process again
+	        loadSvg();
 	    }
-	    
-	    //get all the points in the shape
-        shpPts = shp.getPoints();
-        println("\tTotal Points in current SVG: "+shpPts.length);
-        //shp.draw();
-        
-	    coords = new ArrayList<Point>();
-        seekers = new ArrayList<Boid>();
-	}
-	
-	
-	void loadSeekers() {
-	    for (int i = 0; i < shpPts.length/5; i++) {
-	        newSeeker(random(width), random(height));
-        }
 	}
 	
 	void update(int count, RPoint[] pnts, int baseR) {
@@ -105,8 +149,11 @@ public class AphroMachine extends PApplet {
             float mx = (pnts[i].x);
             float my = (pnts[i].y);
             
-            //add all the point location data from RShape to the coords ArrayList
-            coords.add(new Point(mx, my, false));
+            if (newAphro) {
+                //add all the point location data from RShape to the coords ArrayList
+                coords.add(new Point(mx, my, false));
+            }
+            
             
             if ((i < seekers.size()) && (i < coords.size()) ) {
                 Boid seeker = (Boid) seekers.get(i);
@@ -116,9 +163,19 @@ public class AphroMachine extends PApplet {
                 float r = (seeker.vel.mag()/2)+baseR;
 
                 //draw Boids
-                //println("boid loc: " + seeker.loc.x + "," + seeker.loc.y);
-                ellipse(seeker.loc.x, seeker.loc.y, r, r);
-                //point(seeker.loc.x , seeker.loc.y);
+                //println("\t\tboid loc: " + seeker.loc.x + "," + seeker.loc.y);
+                
+                if(mode == 1) {
+                    segmentLength = 4;
+                    fill(hue, satur, 100, 255);
+                    ellipse(seeker.loc.x, seeker.loc.y, r, r);
+                }
+                
+                if (mode == 0) {
+                  point(seeker.loc.x , seeker.loc.y);
+                }
+                
+                
                
                 if (  (seeker.loc.x > mx-1) && (seeker.loc.x < mx+1) && 
                       (seeker.loc.y > my-1) && (seeker.loc.y < my+1) && 
@@ -129,7 +186,20 @@ public class AphroMachine extends PApplet {
             }
         }
 	}
-	
+	void checkSeekerCount(int count) {
+        if (count > 1) {
+            if(seekers.size() < count) {
+                //for (int y = 0; y < 15; y++) {
+                for (int y = 0; y < 150; y++) {
+                    newSeeker(random(width), random(height));
+                }
+            } else if(seekers.size() > count) {
+                for (int z = 0; z < seekers.size() - count; z++) {
+                    seekers.remove(seekers.size()-1);
+                }
+            }
+        }
+    }
 	
 	//create a new seeker, add it the seekers ArrayList
     void newSeeker(float x, float y) {
@@ -147,7 +217,7 @@ public class AphroMachine extends PApplet {
                     arrived++;
                 }
             }
-            println("\tarrived: "+(arrived/coords.size())*100);
+            //println("\tarrived: "+(arrived/coords.size())*100);
             return (arrived/coords.size())*100;
         } else {
             return 0;
