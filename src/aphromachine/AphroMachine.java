@@ -62,7 +62,7 @@ public class AphroMachine extends PApplet {
 	}
 
 	public void draw() {
-	    //background(0);
+	    background(0);
 	    
 	    if (shpPts != null) {
 	        
@@ -95,7 +95,7 @@ public class AphroMachine extends PApplet {
 	
 	
 	void loadSeekers() {
-	    for (int i = 0; i < shpPts.length; i++) {
+	    for (int i = 0; i < shpPts.length/5; i++) {
 	        newSeeker(random(width), random(height));
         }
 	}
