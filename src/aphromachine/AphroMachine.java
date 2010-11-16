@@ -27,11 +27,12 @@ public class AphroMachine extends PApplet {
 	RPoint[] shpPts;
 	
 	//font-to-geometry settings
-	int segmentLength = 1;
+	int segmentLength = 3;
 	int baseR = 4;
 	int alpha = 20;
 	int mode = 0;  //0: points, 1:ellipses
 	
+
     
     public void setup() {
         size(1280, 720, P2D); 
@@ -51,7 +52,7 @@ public class AphroMachine extends PApplet {
         RG.init(this);
         RCommand.setSegmentLength(segmentLength);
         RCommand.setSegmentator(RCommand.UNIFORMLENGTH);
-        
+                
         //initialize seekers and cords arrayList
         seekers = new ArrayList<Boid>();
         coords = new ArrayList<Point>();
