@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import processing.core.*;
 import geomerative.*;
+import controlP5.*;
 import toxi.color.*;
 import toxi.color.theory.*;
 
@@ -11,6 +12,10 @@ import toxi.color.theory.*;
 public class AphroMachine extends PApplet {
 
 	RFont font;
+	ControlP5 controlP5;
+	ControlWindow controlWindow;
+	Numberbox segmentLenBox;
+	Toggle displayModeToggle;
 	
 	int fontSize = 65;
 	int svgCount = 6;
@@ -27,10 +32,17 @@ public class AphroMachine extends PApplet {
 	RPoint[] shpPts;
 	
 	//font-to-geometry settings
-	int segmentLength = 3;
+	int segmentLength = 4;
 	int baseR = 4;
 	int alpha = 20;
 	int mode = 0;  //0: points, 1:ellipses
+	
+	//GUI values
+	boolean toggleValue = true;
+	int uiWidth = 100;
+	int uiHeight = 14;
+	int uiStartX = 40;
+	int uiStartY = 40;
 	
 
     
@@ -41,12 +53,31 @@ public class AphroMachine extends PApplet {
         randomSeed(360);
         background(0);
         //noCursor();
-        noStroke();
+        //noStroke();
         
         hue = (int)random(360);
         
         fill(200, 99, 99);
         stroke(200, 85, 83, alpha );
+        
+        //initialize controlP5 ui
+        controlP5 = new ControlP5(this);
+        controlP5.setAutoDraw(false);
+        controlWindow = controlP5.addControlWindow("controlP5window",100,100,400,200);
+        controlWindow.hideCoordinates();
+        controlWindow.setBackground(color(40));
+        
+        
+        segmentLenBox = controlP5.addNumberbox("segmentLength", segmentLength, uiStartX, uiStartY, uiWidth, uiHeight);
+        segmentLenBox.setWindow(controlWindow);
+        segmentLenBox.setDirection(Controller.HORIZONTAL);
+        segmentLenBox.setMax(10);
+        segmentLenBox.setMin(1);
+        
+        displayModeToggle = controlP5.addToggle("displayMode", toggleValue, uiStartX, uiStartY*2, uiWidth, uiHeight*2);
+        displayModeToggle.setWindow(controlWindow);
+        displayModeToggle.setMode(ControlP5.SWITCH);
+                        
         
         //initialize RG library
         RG.init(this);
@@ -71,7 +102,6 @@ public class AphroMachine extends PApplet {
 	    if (mode == 1) {
 	        background(0);
 	    }
-	    
 	    
 	    //get all the points in the shape
         shpPts = shp.getPoints();
@@ -98,21 +128,47 @@ public class AphroMachine extends PApplet {
 	    
 	    if (arrived() == 100) {
 	        println("\n\t\t100 Boids arrived");
+	        newLoad();
 	    }
 	        
-	   
-	}
-	
-	public void mousePressed() {
-	    loadSvg();
-	    hue = (int)random(360);
-	    satur = (int)random(50,70);
-	    br = (int)random(70,90);
-	    if (mode == 0) {
-	      stroke(hue, satur, br, alpha);
-	    }
 	    
 	}
+	
+	public void newLoad() {
+	    println("segmentLength is now: "+segmentLength+"\tMode is now: "+mode);
+	    RCommand.setSegmentLength(segmentLength);
+	    loadSvg();
+        hue = (int)random(360);
+        satur = (int)random(50,70);
+        br = (int)random(70,90);
+        if (mode == 0) {
+          stroke(hue, satur, br, alpha);
+        }
+	}
+	
+	public void segmentLength (int p) {
+	    segmentLength = p;
+	}
+	
+	public void displayMode(int p) {
+	    mode = p;
+	}
+	
+	public void keyPressed() {
+	    newLoad();
+	}
+	
+		
+//	public void mousePressed() {
+//	    loadSvg();
+//	    hue = (int)random(360);
+//	    satur = (int)random(50,70);
+//	    br = (int)random(70,90);
+//	    if (mode == 0) {
+//	      stroke(hue, satur, br, alpha);
+//	    }
+//	    
+//	}
 	
 	void loadSvg() {
 	    if (svgPos < svgCount) {
@@ -167,7 +223,7 @@ public class AphroMachine extends PApplet {
                 //println("\t\tboid loc: " + seeker.loc.x + "," + seeker.loc.y);
                 
                 if(mode == 1) {
-                    segmentLength = 4;
+                    //segmentLength = 4;
                     fill(hue, satur, 100, 255);
                     ellipse(seeker.loc.x, seeker.loc.y, r, r);
                 }
