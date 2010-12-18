@@ -11,6 +11,7 @@ import java.nio.FloatBuffer;
 import javax.media.opengl.*;
 
 
+
 public class AphroMachine extends PApplet {
 
 	RFont font;
@@ -37,7 +38,7 @@ public class AphroMachine extends PApplet {
 	int mode = 1;  //0: points, 1:ellipses
 	
     public void setup() {
-        size(1280, 720, OPENGL);
+        size(1280, 720, OPENGL); 
         smooth();
         colorMode(HSB, 360, 100, 100);
         randomSeed(360);
@@ -62,7 +63,6 @@ public class AphroMachine extends PApplet {
         
         //load all svgs into array for later use
         for (int i = 0; i < svgCount; i++) {
-        //for (int i = 6; i < svgCount; i++) {
             svgs[i] = "aphroisms_svg-0" + (i+1) + ".svg";
             //println(svgs[i]); //sanity check
         } 
@@ -75,7 +75,6 @@ public class AphroMachine extends PApplet {
 	    if (mode == 1) {
 	        background(0);
 	    }
-        
 	    //OPENGL settings
 	    GL gl = ((PGraphicsOpenGL)g).gl;
 	    
@@ -131,10 +130,6 @@ public class AphroMachine extends PApplet {
 	}
 	
 	void loadSvg() {
-	    hue = (int)random(360);
-        satur = (int)random(50,70);
-        br = (int)random(70,90);
-        
 	    if (svgPos < svgCount) {
 	        //load in next svg
 	        shp = RG.loadShape(svgs[svgPos]);
@@ -215,10 +210,10 @@ public class AphroMachine extends PApplet {
 	void checkSeekerCount(int count) {
         if (count > 1) {
             if(seekers.size() < count) {
-                for (int y = 0; y < 15; y++) { //mb
+                for (int y = 0; y < 15; y++) {
                 //for (int y = 0; y < 150; y++) {
-                    newSeeker(random(width), random(height)); //mb
-                    //newSeeker(random(width), (height));
+                    //newSeeker(random(width), random(height));
+                    newSeeker(random(width), (height));
                 }
             } else if(seekers.size() > count) {
                 for (int z = 0; z < seekers.size() - count; z++) {
