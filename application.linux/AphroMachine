@@ -1,0 +1,4 @@
+#!/bin/sh
+
+APPDIR=$(dirname "$0")
+java  -Djava.library.path="$APPDIR" -cp "$APPDIR/lib/AphroMachine.jar:$APPDIR/lib/gluegen-rt-natives-linux-amd64.jar:$APPDIR/lib/gluegen-rt-natives-linux-i586.jar:$APPDIR/lib/gluegen-rt-natives-macosx-ppc.jar:$APPDIR/lib/gluegen-rt-natives-macosx-universal.jar:$APPDIR/lib/gluegen-rt-natives-windows-amd64.jar:$APPDIR/lib/gluegen-rt-natives-windows-i586.jar:$APPDIR/lib/gluegen-rt.jar:$APPDIR/lib/jogl-natives-linux-amd64.jar:$APPDIR/lib/jogl-natives-linux-i586.jar:$APPDIR/lib/jogl-natives-macosx-ppc.jar:$APPDIR/lib/jogl-natives-macosx-universal.jar:$APPDIR/lib/jogl-natives-windows-amd64.jar:$APPDIR/lib/jogl-natives-windows-i586.jar:$APPDIR/lib/jogl.jar:$APPDIR/lib/opengl.jar:$APPDIR/lib/ant-launcher.jar:$APPDIR/lib/ant.jar:$APPDIR/lib/core.jar:$APPDIR/lib/batikfont.jar:$APPDIR/lib/geomerative.jar"aphromachine.AphroMachine

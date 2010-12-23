@@ -1,0 +1,3 @@
+
+aphromachine.AphroMachine
+AphroMachine.jar,gluegen-rt-natives-linux-amd64.jar,gluegen-rt-natives-linux-i586.jar,gluegen-rt-natives-macosx-ppc.jar,gluegen-rt-natives-macosx-universal.jar,gluegen-rt-natives-windows-amd64.jar,gluegen-rt-natives-windows-i586.jar,gluegen-rt.jar,jogl-natives-linux-amd64.jar,jogl-natives-linux-i586.jar,jogl-natives-macosx-ppc.jar,jogl-natives-macosx-universal.jar,jogl-natives-windows-amd64.jar,jogl-natives-windows-i586.jar,jogl.jar,opengl.jar,ant-launcher.jar,ant.jar,core.jar,batikfont.jar,geomerative.jar

@@ -90,22 +90,6 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="AphroMachine/lib/base/core"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/user/colorutils/colorutils.jar">
-		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="AphroMachine/lib/user/colorutils"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/user/controlP5/controlP5.jar" sourcepath="/Users/miguelb/Documents/Processing/libraries/controlP5/src">
-		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="AphroMachine/lib/user/controlP5"/>
-			<attribute name="javadoc_location" value="file:/Users/miguelb/Documents/Processing/libraries/controlP5/reference/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/user/datautils/datautils.jar">
-		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="AphroMachine/lib/user/datautils"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="lib/user/geomerative/batikfont.jar" sourcepath="/Users/miguelb/Documents/Processing/libraries/geomerative/src">
 		<attributes>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="AphroMachine/lib/user/geomerative"/>
@@ -114,12 +98,6 @@
 	<classpathentry kind="lib" path="lib/user/geomerative/geomerative.jar" sourcepath="/Users/miguelb/Documents/Processing/libraries/geomerative/src">
 		<attributes>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="AphroMachine/lib/user/geomerative"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/user/oscP5/oscP5.jar" sourcepath="/Users/miguelb/Documents/Processing/libraries/oscP5/src">
-		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="AphroMachine/lib/user/oscP5"/>
-			<attribute name="javadoc_location" value="file:/Users/miguelb/Documents/Processing/libraries/oscP5/reference/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
