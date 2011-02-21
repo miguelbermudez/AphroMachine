@@ -217,8 +217,8 @@ public class AphroMachine extends PApplet {
             if(seekers.size() < count) {
                 for (int y = 0; y < 15; y++) { //mb
                 //for (int y = 0; y < 150; y++) {
-                    newSeeker(random(width), random(height)); //mb
-                    //newSeeker(random(width), (height));
+                    //newSeeker(random(width), random(height)); //mb
+                    newSeeker(random(width), (height+50));
                 }
             } else if(seekers.size() > count) {
                 for (int z = 0; z < seekers.size() - count; z++) {
